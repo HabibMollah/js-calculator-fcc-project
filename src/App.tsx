@@ -20,7 +20,7 @@ const numbersData: NumberData[] = [
 ];
 
 export default function App() {
-  const [total, setTotal] = useState();
+  const [total, setTotal] = useState<string>();
   // const [input, setInput] = useState(0);
 
   return (
@@ -49,7 +49,11 @@ export default function App() {
 }
 
 function NumberButton({ number, id }: { number: number; id: string }) {
-  return <button id={id}>{number}</button>;
+  return (
+    <button onClick={() => setTotal(number + number.toString())} id={id}>
+      {number}
+    </button>
+  );
 }
 
 function NumPad({ numbersData }: { numbersData: NumberData[] }) {
