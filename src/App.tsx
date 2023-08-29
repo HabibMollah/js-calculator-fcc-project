@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import './App.css';
+import { useInputContext } from './context';
 
 type NumberData = {
   number: number;
@@ -20,37 +20,58 @@ const numbersData: NumberData[] = [
 ];
 
 export default function App() {
-  const [total, setTotal] = useState<string>();
+  // const [total, setTotal] = useState<string>();
   // const [input, setInput] = useState(0);
+
+  const { totalInput, setTotalInput } = useInputContext();
+
+  // console.log(eval(totalInput));
+  console.log(totalInput);
 
   return (
     <div className="app">
-      <textarea id="display" defaultValue={0} disabled>
-        {total}
-      </textarea>
+      <div id="display">{totalInput ? totalInput : 0}</div>
       <main className="calculator">
         <div className="numpad">
           <NumPad numbersData={numbersData} />
           <button id="decimal">.</button>
-          <button id="equals">=</button>
+          <button onClick={() => setTotalInput(eval(totalInput))} id="equals">
+            =
+          </button>
         </div>
         <div className="operators">
-          <button id="divide">/</button>
-          <button id="multiply">*</button>
-          <button id="subtract">-</button>
-          <button id="add">+</button>
+          <button onClick={() => setTotalInput(totalInput + '/')} id="divide">
+            /
+          </button>
+          <button onClick={() => setTotalInput(totalInput + '*')} id="multiply">
+            *
+          </button>
+          <button onClick={() => setTotalInput(totalInput + '-')} id="subtract">
+            -
+          </button>
+          <button onClick={() => setTotalInput(totalInput + '+')} id="add">
+            +
+          </button>
         </div>
       </main>
       <div>
-        <button id="clear">A/C</button>
+        <button onClick={() => setTotalInput('')} id="clear">
+          A/C
+        </button>
       </div>
     </div>
   );
 }
 
 function NumberButton({ number, id }: { number: number; id: string }) {
+  const { totalInput, setTotalInput } = useInputContext();
+
   return (
-    <button onClick={() => setTotal(number + number.toString())} id={id}>
+    <button
+      onClick={() => {
+        setTotalInput(totalInput + String(number));
+      }}
+      id={id}>
       {number}
     </button>
   );
@@ -59,8 +80,8 @@ function NumberButton({ number, id }: { number: number; id: string }) {
 function NumPad({ numbersData }: { numbersData: NumberData[] }) {
   return (
     <>
-      {numbersData.map((numberData) => (
-        <NumberButton {...numberData} />
+      {numbersData.map((numberData, index) => (
+        <NumberButton key={index} {...numberData} />
       ))}
     </>
   );
