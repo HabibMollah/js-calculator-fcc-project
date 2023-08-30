@@ -25,9 +25,15 @@ export default function App() {
   // const [total, setTotal] = useState<string>();
   // const [input, setInput] = useState(0);
 
-  // console.log(eval(totalInput));
+  console.log(totalInput);
   console.log(splittedInputs);
-  console.log(splittedInputs[splittedInputs.length - 1]);
+  // console.log(totalInput.charAt(totalInput.length - 1));
+  // console.log(splittedInputs[splittedInputs.length - 1);
+
+  const handleOperator = (operator: string) => {
+    // if (totalInput.charAt(totalInput.length - 1))
+    setTotalInput(totalInput + operator);
+  };
 
   return (
     <div className="app">
@@ -55,16 +61,16 @@ export default function App() {
           </button>
         </div>
         <div className="operators">
-          <button onClick={() => setTotalInput(totalInput + '/')} id="divide">
+          <button onClick={() => handleOperator('/')} id="divide">
             /
           </button>
-          <button onClick={() => setTotalInput(totalInput + '*')} id="multiply">
+          <button onClick={() => handleOperator('*')} id="multiply">
             *
           </button>
-          <button onClick={() => setTotalInput(totalInput + '-')} id="subtract">
+          <button onClick={() => handleOperator('-')} id="subtract">
             -
           </button>
-          <button onClick={() => setTotalInput(totalInput + '+')} id="add">
+          <button onClick={() => handleOperator('+')} id="add">
             +
           </button>
         </div>
