@@ -1,6 +1,6 @@
 export default function calculate(inputs: string) {
   try {
-    eval(inputs);
+    return eval(inputs);
   } catch (error) {
     return `Error: ${error}`;
   }
