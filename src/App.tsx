@@ -1,4 +1,5 @@
 import './App.css';
+import calculate from './calculate';
 import { useInputContext } from './context';
 
 type NumberData = {
@@ -35,7 +36,9 @@ export default function App() {
         <div className="numpad">
           <NumPad numbersData={numbersData} />
           <button id="decimal">.</button>
-          <button onClick={() => setTotalInput(eval(totalInput))} id="equals">
+          <button
+            onClick={() => setTotalInput(calculate(totalInput))}
+            id="equals">
             =
           </button>
         </div>
@@ -69,6 +72,7 @@ function NumberButton({ number, id }: { number: number; id: string }) {
   return (
     <button
       onClick={() => {
+        if (totalInput !== '' && number === 0) return;
         setTotalInput(totalInput + String(number));
       }}
       id={id}>
