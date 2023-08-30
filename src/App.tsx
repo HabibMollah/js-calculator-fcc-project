@@ -21,17 +21,36 @@ const numbersData: NumberData[] = [
 ];
 
 export default function App() {
-  const { totalInput, setTotalInput, splittedInputs } = useInputContext();
+  const { totalInput, setTotalInput, splittedInputs, lastChar } =
+    useInputContext();
   // const [total, setTotal] = useState<string>();
   // const [input, setInput] = useState(0);
 
   console.log(totalInput);
   console.log(splittedInputs);
+  console.log(lastChar);
+
   // console.log(totalInput.charAt(totalInput.length - 1));
   // console.log(splittedInputs[splittedInputs.length - 1);
 
   const handleOperator = (operator: string) => {
-    // if (totalInput.charAt(totalInput.length - 1))
+    console.log(splittedInputs);
+
+    if (!(operator === '-')) {
+      if (
+        lastChar === '*' ||
+        lastChar === '/' ||
+        lastChar === '+' ||
+        lastChar === '-'
+      ) {
+        // replace last operator with new operator
+        const newSplittedInputs = [...splittedInputs];
+        newSplittedInputs[newSplittedInputs.length - 1] = operator;
+        setTotalInput(newSplittedInputs.join(''));
+        return;
+      }
+    }
+
     setTotalInput(totalInput + operator);
   };
 

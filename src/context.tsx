@@ -11,6 +11,7 @@ type InputContextType = {
   totalInput: string;
   setTotalInput: Dispatch<SetStateAction<string>>;
   splittedInputs: string[];
+  lastChar: string;
 };
 
 type ContextProviderProps = {
@@ -22,17 +23,29 @@ const InputContext = createContext<InputContextType | null>(null);
 export function InputContextProvider({ children }: ContextProviderProps) {
   const [totalInput, setTotalInput] = useState('');
 
-  let splittedInputs;
-
-  try {
-    splittedInputs = totalInput.split(/[*/+-]/);
-  } catch (error) {
-    splittedInputs = [''];
+  function splitInputs() {
+    try {
+      return totalInput.split(/[*/+-]/);
+    } catch (error) {
+      return [''];
+    }
   }
+
+  const splittedInputs = splitInputs();
+
+  function getLastChar() {
+    try {
+      return totalInput.charAt(totalInput.length - 1);
+    } catch (error) {
+      return '';
+    }
+  }
+
+  const lastChar = getLastChar();
 
   return (
     <InputContext.Provider
-      value={{ totalInput, setTotalInput, splittedInputs }}>
+      value={{ totalInput, setTotalInput, splittedInputs, lastChar }}>
       {children}
     </InputContext.Provider>
   );
