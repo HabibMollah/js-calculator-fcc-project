@@ -44,49 +44,58 @@ export default function App() {
   };
 
   return (
-    <div className="app">
-      <div id="display">{totalInput ? totalInput : 0}</div>
-      <main className="calculator">
-        <div className="numpad">
-          <NumPad numbersData={numbersData} />
-          <button
-            onClick={() =>
-              setTotalInput(
-                splittedInputs[splittedInputs.length - 1].includes('.')
-                  ? totalInput
-                  : totalInput + '.'
-              )
-            }
-            id="decimal">
-            .
-          </button>
-          <button
-            onClick={() => setTotalInput(calculate(totalInput))}
-            id="equals">
-            =
+    <main>
+      <h1>React Calculator</h1>
+      <h2>
+        by{' '}
+        <a target="_blank" href="https://github.com/habibmollah">
+          Habib Mollah
+        </a>
+      </h2>
+      <div className="app">
+        <div id="display">{totalInput ? totalInput : 0}</div>
+        <main className="calculator">
+          <div className="numpad">
+            <NumPad numbersData={numbersData} />
+            <button
+              onClick={() =>
+                setTotalInput(
+                  splittedInputs[splittedInputs.length - 1].includes('.')
+                    ? totalInput
+                    : totalInput + '.'
+                )
+              }
+              id="decimal">
+              .
+            </button>
+            <button
+              onClick={() => setTotalInput(calculate(totalInput))}
+              id="equals">
+              =
+            </button>
+          </div>
+          <div className="operators">
+            <button onClick={() => handleOperator('/')} id="divide">
+              /
+            </button>
+            <button onClick={() => handleOperator('*')} id="multiply">
+              *
+            </button>
+            <button onClick={() => handleOperator('-')} id="subtract">
+              -
+            </button>
+            <button onClick={() => handleOperator('+')} id="add">
+              +
+            </button>
+          </div>
+        </main>
+        <div>
+          <button onClick={() => setTotalInput('')} id="clear">
+            A/C
           </button>
         </div>
-        <div className="operators">
-          <button onClick={() => handleOperator('/')} id="divide">
-            /
-          </button>
-          <button onClick={() => handleOperator('*')} id="multiply">
-            *
-          </button>
-          <button onClick={() => handleOperator('-')} id="subtract">
-            -
-          </button>
-          <button onClick={() => handleOperator('+')} id="add">
-            +
-          </button>
-        </div>
-      </main>
-      <div>
-        <button onClick={() => setTotalInput('')} id="clear">
-          A/C
-        </button>
       </div>
-    </div>
+    </main>
   );
 }
 
