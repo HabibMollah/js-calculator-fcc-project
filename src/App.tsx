@@ -23,19 +23,8 @@ const numbersData: NumberData[] = [
 export default function App() {
   const { totalInput, setTotalInput, splittedInputs, lastChar } =
     useInputContext();
-  // const [total, setTotal] = useState<string>();
-  // const [input, setInput] = useState(0);
-
-  console.log(totalInput);
-  console.log(splittedInputs);
-  console.log(lastChar);
-
-  // console.log(totalInput.charAt(totalInput.length - 1));
-  // console.log(splittedInputs[splittedInputs.length - 1);
 
   const handleOperator = (operator: string) => {
-    console.log(splittedInputs);
-
     if (!(operator === '-')) {
       if (
         lastChar === '*' ||
@@ -62,9 +51,7 @@ export default function App() {
           <NumPad numbersData={numbersData} />
           <button
             onClick={() =>
-              // console.log(splittedInputs[splittedInputs.length - 1]);
               setTotalInput(
-                // totalInput.charAt(totalInput.length - 1) !== '.'
                 splittedInputs[splittedInputs.length - 1].includes('.')
                   ? totalInput
                   : totalInput + '.'
