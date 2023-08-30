@@ -21,13 +21,13 @@ const numbersData: NumberData[] = [
 ];
 
 export default function App() {
+  const { totalInput, setTotalInput, splittedInputs } = useInputContext();
   // const [total, setTotal] = useState<string>();
   // const [input, setInput] = useState(0);
 
-  const { totalInput, setTotalInput } = useInputContext();
-
   // console.log(eval(totalInput));
-  console.log(totalInput);
+  console.log(splittedInputs);
+  console.log(splittedInputs[splittedInputs.length - 1]);
 
   return (
     <div className="app">
@@ -35,7 +35,19 @@ export default function App() {
       <main className="calculator">
         <div className="numpad">
           <NumPad numbersData={numbersData} />
-          <button id="decimal">.</button>
+          <button
+            onClick={() =>
+              // console.log(splittedInputs[splittedInputs.length - 1]);
+              setTotalInput(
+                // totalInput.charAt(totalInput.length - 1) !== '.'
+                splittedInputs[splittedInputs.length - 1].includes('.')
+                  ? totalInput
+                  : totalInput + '.'
+              )
+            }
+            id="decimal">
+            .
+          </button>
           <button
             onClick={() => setTotalInput(calculate(totalInput))}
             id="equals">
@@ -72,7 +84,7 @@ function NumberButton({ number, id }: { number: number; id: string }) {
   return (
     <button
       onClick={() => {
-        if (totalInput !== '' && number === 0) return;
+        if (totalInput === '' && number === 0) return;
         setTotalInput(totalInput + String(number));
       }}
       id={id}>
